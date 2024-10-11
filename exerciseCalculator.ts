@@ -40,4 +40,21 @@ const calculateExercises = (exerciseHours: number[], target: number): Result => 
     return res
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
+const parseArguments = (args: string[]) => {
+    if (args.length < 4) throw new Error('Not enough arguments');
+    let [_arg0, _arg1, target, ...exDays] = args
+    if (isNaN(Number(target))) throw new Error('target not a number');
+
+    exDays.forEach(day => {
+        if (isNaN(Number(day))) throw new Error('hours are not all numbers');
+    })
+
+    return {
+        exerciseHours: exDays.map(day => Number(day)),
+        target: Number(target)
+    }
+}
+
+const {exerciseHours, target} = parseArguments(process.argv)
+
+console.log(calculateExercises(exerciseHours, target))
