@@ -8,7 +8,7 @@ interface Result {
     average: number
 }
 
-const calculateExercises = (exerciseHours: number[], target: number): Result => {
+export const calculateExercises = (exerciseHours: number[], target: number): Result => {
     const res: Result = {
         periodLength: 0,
         trainingDays: 0,
@@ -56,6 +56,7 @@ const parseArguments = (args: string[]) => {
     };
 };
 
-const {exerciseHours, target} = parseArguments(process.argv);
-
-console.log(calculateExercises(exerciseHours, target));
+if (require.main === module){
+    const {exerciseHours, target} = parseArguments(process.argv);
+    console.log(calculateExercises(exerciseHours, target));
+}
