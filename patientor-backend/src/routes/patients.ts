@@ -1,7 +1,7 @@
 import express from 'express';
 import { Response } from 'express';
 
-import { SecuredPatient } from '../types';
+import { NewPatient, Patient, SecuredPatient } from '../types';
 
 import patientService from '../services/patientService';
 
@@ -14,8 +14,12 @@ router.get('/', (_req, res: Response<SecuredPatient[]>) => {
 
 });
 
-router.post('/', (_req, res) => {
-  res.send('Saving a diary!');
+router.post('/', (req, res) => {
+  console.log('Saving a diary!');
+  const newPatient: NewPatient = req.body as NewPatient;
+  const patient: Patient = patientService.addPatient(newPatient);
+
+  res.json(patient);
 });
 
 export default router;
