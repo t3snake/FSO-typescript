@@ -4,6 +4,7 @@ import DiaryEntries from './components/DiaryEntries'
 
 import { Diary } from './types'
 import diaryService from './services/diaryService'
+import DiaryForm from './components/DiaryForm';
 
 function App() {
     const [diaries, setDiaries] = useState<Diary[]>([]);
@@ -18,6 +19,7 @@ function App() {
 
     return (
         <>
+            <DiaryForm diaries={diaries} setDiaries={setDiaries} />
             <DiaryEntries diaries={diaries} />
         </>
     )

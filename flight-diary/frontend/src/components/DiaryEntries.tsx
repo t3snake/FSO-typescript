@@ -7,6 +7,7 @@ type EntryProps = {
 const DiaryEntries = (props: EntryProps) => {
     return (
         <>
+            <h2>Diary Entries</h2>
             {props.diaries.map(diary => {
                 return (
                     <div key={diary.id}>
