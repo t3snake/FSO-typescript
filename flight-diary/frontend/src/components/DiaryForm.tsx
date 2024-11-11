@@ -1,39 +1,61 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import { Diary, Visibility, Weather } from "../types";
-
 import diaryService from "../services/diaryService";
 
 type FormProps = {
     diaries: Diary[];
     setDiaries: React.Dispatch<React.SetStateAction<Diary[]>>;
 }
+
 const DiaryForm = (props: FormProps) => {
     const [date, setDate] = useState('');
     const [visibility, setVisibility] = useState<Visibility>(Visibility.Great);
     const [weather, setWeather] = useState<Weather>(Weather.Sunny);
     const [comment, setComment] = useState('');
 
+    const [error, setError] = useState('');
+
     const addDiary = async (event: React.SyntheticEvent) => {
         event.preventDefault();
-        const diary = await diaryService.addDiary({
-            date,
-            weather,
-            visibility,
-            comment
-        });
-        const newDiaries = props.diaries.concat(diary);
-        props.setDiaries(newDiaries);
+        try {
+            const diary = await diaryService.addDiary({
+                date,
+                weather,
+                visibility,
+                comment
+            });
+            const newDiaries = props.diaries.concat(diary);
+            props.setDiaries(newDiaries);
+            setError('');
+            setDate('');
+            setComment('');
+            setVisibility(Visibility.Great);
+            setWeather(Weather.Sunny);
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data);
+            } else if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                console.log(error);
+            }
+        }
+    }
 
-        setDate('');
-        setComment('');
-        setVisibility(Visibility.Great);
-        setWeather(Weather.Sunny);
+    const ErrorNotification = () => {
+        return (
+            <>
+                <p>Error: {error}</p>
+            </>
+        )
     }
 
     return (
         <>
             <h2>Add new diary</h2>
+            {error.length !== 0 && <ErrorNotification />}
             <form onSubmit={addDiary}>
                 <div>
                     date
