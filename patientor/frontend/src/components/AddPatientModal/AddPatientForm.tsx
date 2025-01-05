@@ -23,7 +23,7 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
   const [occupation, setOccupation] = useState('');
   const [ssn, setSsn] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
-  const [gender, setGender] = useState(Gender.Empty);
+  const [gender, setGender] = useState(Gender.Male);
 
   const onGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();

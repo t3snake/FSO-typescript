@@ -8,7 +8,6 @@ export enum Gender {
   Male = "male",
   Female = "female",
   Other = "other",
-  Empty = "",
 }
 
 export interface Patient {
