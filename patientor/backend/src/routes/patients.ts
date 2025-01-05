@@ -18,7 +18,7 @@ router.get('/', (_req, res: Response<SecuredPatient[]>) => {
 
 router.post('/', (req, res) => {
     try{
-        console.log('Saving a diary!');
+        console.log('Adding a patient!');
         const newPatient: NewPatient = newEntrySchema.parse(req.body);
         const patient: Patient = patientService.addPatient(newPatient);
     
@@ -29,6 +29,17 @@ router.post('/', (req, res) => {
         } else {      
             res.status(400).send({ error: 'unknown error' });    
         }  
+    }
+});
+
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    const patient = patientService.getPatientDetails(id);
+
+    if ( patient === undefined ) {
+        res.status(404).send({ error: `${id} id not found`});
+    } else {
+        res.json(patient);
     }
 });
 

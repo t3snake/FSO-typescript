@@ -22,7 +22,8 @@ const getSecuredPatients = (): SecuredPatient[] => {
 const addPatient = (patient: NewPatient): Patient => {
     const newPatient = {
         id: uuid(),
-        ...patient
+        ...patient,
+        entries: []
     };
 
     patients.push(newPatient);
@@ -30,8 +31,13 @@ const addPatient = (patient: NewPatient): Patient => {
     return newPatient;
 };
 
+const getPatientDetails = (id: string): Patient | undefined => {
+    return patients.find(patient => patient.id === id);
+};
+
 export default {
     getPatients,
     getSecuredPatients,
-    addPatient
+    addPatient,
+    getPatientDetails
 };
