@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent } from "react";
 
-import {  TextField, InputLabel, MenuItem, Select, Grid, Button, SelectChangeEvent } from '@mui/material';
+import {  TextField, MenuItem, Grid, Button } from '@mui/material';
 
 import { PatientFormValues, Gender } from "../../types";
 
@@ -23,9 +23,9 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
   const [occupation, setOccupation] = useState('');
   const [ssn, setSsn] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
-  const [gender, setGender] = useState(Gender.Other);
+  const [gender, setGender] = useState(Gender.Empty);
 
-  const onGenderChange = (event: SelectChangeEvent<string>) => {
+  const onGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     if ( typeof event.target.value === "string") {
       const value = event.target.value;
@@ -61,6 +61,7 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           fullWidth
           value={ssn}
           onChange={({ target }) => setSsn(target.value)}
+          style={{ marginTop: 10 }}
         />
         <TextField
           label="Date of birth"
@@ -68,32 +69,35 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           fullWidth
           value={dateOfBirth}
           onChange={({ target }) => setDateOfBirth(target.value)}
+          style={{ marginTop: 10 }}
         />
         <TextField
           label="Occupation"
           fullWidth
           value={occupation}
           onChange={({ target }) => setOccupation(target.value)}
+          style={{ marginTop: 10 }}
         />
 
-        <InputLabel style={{ marginTop: 20 }}>Gender</InputLabel>
-        <Select
+        <TextField
+          select
           label="Gender"
-          fullWidth
           value={gender}
+          fullWidth
           onChange={onGenderChange}
+          style={{ marginTop: 10 }}
         >
         {genderOptions.map(option =>
           <MenuItem
             key={option.label}
             value={option.value}
           >
-            {option.label
-          }</MenuItem>
+            {option.label}
+          </MenuItem>
         )}
-        </Select>
+        </TextField>
 
-        <Grid>
+        <Grid style={{ marginTop: 10 }}>
           <Grid item>
             <Button
               color="secondary"

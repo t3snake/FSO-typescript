@@ -2,7 +2,7 @@ import express from 'express';
 import { Response } from 'express';
 import { z } from 'zod';
 
-import { NewPatient, Patient, SecuredPatient } from '../types';
+import { NewPatient, Patient, SecuredPatient, Error } from '../types';
 
 import patientService from '../services/patientService';
 import { newEntrySchema } from '../utils';
@@ -16,7 +16,7 @@ router.get('/', (_req, res: Response<SecuredPatient[]>) => {
 
 });
 
-router.post('/', (req, res) => {
+router.post('/', (req, res: Response<Patient | Error>) => {
     try{
         console.log('Adding a patient!');
         const newPatient: NewPatient = newEntrySchema.parse(req.body);
@@ -25,14 +25,14 @@ router.post('/', (req, res) => {
         res.json(patient);
     } catch (error: unknown) {
         if (error instanceof z.ZodError) {      
-            res.status(400).send({ error: error.issues });    
+            res.status(400).send({ error: error.message });    
         } else {      
             res.status(400).send({ error: 'unknown error' });    
         }  
     }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res: Response<Patient | Error>) => {
     const id = req.params.id;
     const patient = patientService.getPatientDetails(id);
 

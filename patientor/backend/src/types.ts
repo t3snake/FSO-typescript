@@ -10,6 +10,10 @@ export interface Diagnosis {
     latin?: string;
 }
 
+export interface Error {
+    error: string;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface Entry {
     
