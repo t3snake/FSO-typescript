@@ -6,8 +6,47 @@ import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
 
-import { Gender, Patient } from "../types";
+import { Gender, Patient, Entry } from "../types";
 import patientService from "../services/patients";
+import diagnosisService from "../services/diagnosis";
+
+const DiagnosisList = ({code}: {code: string}) => {
+    const [description, setDescription] = useState<string>("");
+
+    useEffect(() => {
+        const fetchDiagnosis = async () => {
+            if (code) {
+                const diagnosis = await diagnosisService.getDiagnosis(code);
+                if (diagnosis){
+                    setDescription(diagnosis.name);
+                }
+            }
+        };
+        fetchDiagnosis();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <ListItem id={code}>
+            {code} {description}
+        </ListItem>
+    );
+};
+
+const EntryPart = ({entry}: {entry: Entry}) => {
+    return (
+        <div key={entry.id}>
+        {entry.date} {entry.description}
+        <List>
+            {entry.diagnosisCodes?.map(code => 
+                <>
+                    <DiagnosisList code={code} />
+                </> 
+            )}
+        </List>
+    </div>
+    );
+};
 
 const PatientPage = () => {
     const id  = useParams<string>().id;
@@ -41,16 +80,7 @@ const PatientPage = () => {
                 {
                     patient.entries.map(entry => {
                         return (
-                            <div key={entry.id}>
-                                {entry.date} {entry.description}
-                                <List>
-                                    {entry.diagnosisCodes?.map(code => 
-                                        <ListItem id={code}>
-                                            {code}
-                                        </ListItem>
-                                    )}
-                                </List>
-                            </div>
+                            <EntryPart entry={entry} />
                         );                                      
                     })
                 }
