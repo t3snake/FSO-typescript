@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Container, Typography } from "@mui/material";
+import { Container, List, ListItem, Typography } from "@mui/material";
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
@@ -35,6 +35,27 @@ const PatientPage = () => {
                 </Typography>
                 <Typography align="center">ssn: {patient.ssn}</Typography>
                 <Typography align="center">occupation: {patient.occupation}</Typography>
+
+                <Typography variant="h5">entries</Typography>
+                <Typography>
+                {
+                    patient.entries.map(entry => {
+                        return (
+                            <div key={entry.id}>
+                                {entry.date} {entry.description}
+                                <List>
+                                    {entry.diagnosisCodes?.map(code => 
+                                        <ListItem id={code}>
+                                            {code}
+                                        </ListItem>
+                                    )}
+                                </List>
+                            </div>
+                        );                                      
+                    })
+                }
+                </Typography>
+                
             </>     
             }
         </Container>
