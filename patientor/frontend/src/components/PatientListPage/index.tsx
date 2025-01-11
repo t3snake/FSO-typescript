@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
+import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody, Paper } from '@mui/material';
 import axios from 'axios';
 
 import { PatientFormValues, Patient } from "../../types";
@@ -48,13 +48,13 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
     };
 
     return (
-        <div className="App">
+        <Paper color="primary" className="App" style={{ marginTop: "1em", padding: "1em" }}>
             <Box>
                     <Typography align="center" variant="h5">
                         Patient list
                     </Typography>
             </Box>
-            <Table style={{ marginBottom: "1em" }}>
+            <Table style={{ marginBottom: "1em" }} color="primary">
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
@@ -86,10 +86,10 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
                 error={error}
                 onClose={closeModal}
             />
-            <Button variant="contained" onClick={() => openModal()}>
+            <Button color="secondary" variant="contained" onClick={() => openModal()}>
                 Add New Patient
             </Button>
-        </div>
+        </Paper>
     );
 };
 
