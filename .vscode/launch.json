@@ -5,6 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Launch localhost",
+            "url": "http://localhost:5173/",
+            "webRoot": "${workspaceFolder}/patientor/frontend/dist/**/*.js",
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "Firefox debug",
+            "url": "http://localhost:3001",
+            "webRoot": "${workspaceFolder}/patientor/frontend/dist/**/*.js",
+            "preLaunchTask": "npm: build - patientor/frontend",
+        },
+
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Patientor Frontend",
@@ -12,10 +29,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/patientor/frontend/src/App.tsx",
-            "preLaunchTask": "npm run dev",
+            "program": "${workspaceFolder}/patientor/frontend/src/index.ts",
+            "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
-                "${workspaceFolder}/patientor/frontend/dist/*.js"
+                "${workspaceFolder}/patientor/frontend/dist/**/*.js"
             ]
         }
     ]

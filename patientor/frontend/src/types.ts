@@ -10,7 +10,7 @@ export enum Gender {
   Other = "other",
 }
 
-interface BaseEntry {
+export interface BaseEntry {
     id: string;
     description: string;
     date: string;
@@ -30,12 +30,24 @@ interface HealthCheckEntry extends BaseEntry {
     healthCheckRating: HealthCheckRating;
 }
 
+export interface HealthCheckProps {
+    healthCheckRating: HealthCheckRating;
+    setHealthCheckRating: React.Dispatch<React.SetStateAction<HealthCheckRating>>;
+}
+
 interface HospitalEntry extends BaseEntry {
     type: 'Hospital';
     discharge: {
         date: string;
         criteria: string;
     };
+}
+
+export interface HospitalProps {
+    hospitalDate: string;
+    setHospitalDate: React.Dispatch<React.SetStateAction<string>>;
+    criteria: string;
+    setCriteria: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface OccupationalHealthcareEntry extends BaseEntry {
@@ -47,12 +59,21 @@ interface OccupationalHealthcareEntry extends BaseEntry {
     };
 }
 
+export interface OccupationalHealthcareProps {
+    employerName: string;
+    setEmployerName: React.Dispatch<React.SetStateAction<string>>;
+    startDate: string;
+    setStartDate: React.Dispatch<React.SetStateAction<string>>;
+    endDate: string;
+    setEndDate: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export type Entry = HealthCheckEntry | HospitalEntry | OccupationalHealthcareEntry;
 
 // Define special omit for unions
 type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
 
-export type EntryWithoutId = UnionOmit<Entry, 'id'>;
+export type EntryFormValues = UnionOmit<Entry, 'id'>;
 
 export interface Patient {
   id: string;

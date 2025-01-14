@@ -9,6 +9,15 @@
             "problemMatcher": [],
             "label": "npm: build - patientor/frontend",
             "detail": "tsc && vite build"
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "path": "patientor/frontend",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: build - patientor/frontend",
+            "detail": "tsc && vite build"
         }
     ]
 }
