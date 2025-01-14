@@ -1,6 +1,9 @@
 import { useState, SyntheticEvent } from "react";
 
-import {  TextField, MenuItem, Grid, Button } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Grid from '@mui/material/Grid';
 
 import { EntryFormValues, Diagnosis, Entry, BaseEntry, HealthCheckRating, HealthCheckProps, HospitalProps, OccupationalHealthcareProps } from "../../types";
 import HealthCheckForm from "./HealthCheckForm";
@@ -135,7 +138,7 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                 value={description}
                 onChange={({ target }) => setDescription(target.value)}
             />
-            <TextField
+             <TextField
                 label="Date"
                 color="secondary"
                 placeholder="YYYY-MM-DD"
